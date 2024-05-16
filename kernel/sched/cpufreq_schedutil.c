@@ -670,7 +670,6 @@ static int sugov_kthread_create(struct sugov_policy *sg_policy)
 		.sched_deadline = 10000000,
 		.sched_period	= 10000000,
 	};
-	struct sched_param param = { .sched_priority = SUGOV_KTHREAD_PRIORITY };
 	struct cpufreq_policy *policy = sg_policy->policy;
 	int ret;
 
