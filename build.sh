@@ -122,6 +122,7 @@ ls $PWD/out/arch/arm64/boot/dtb.img
 
 # Anykernel 3 time!!
 echo "**** Verifying AnyKernel3 Directory ****"
+git clone https://github.com/ramaadni/AnyKernel3.git -b garnet AnyKernel3
 ls $ANYKERNEL3_DIR
 echo "**** Removing leftovers ****"
 rm -rf $ANYKERNEL3_DIR/Image.gz
@@ -175,6 +176,10 @@ do
 caption="Build successful in $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) seconds."
 curl -F "document=@$i" --form-string "caption=$caption" "https://api.telegram.org/bot${BOT_TOKEN}/sendDocument?chat_id=${CHAT_ID}&parse_mode=HTML"
 done
+
+# Delete files that have been uploaded
+rm -rf AnyKernel3
+rm -rf *.zip
 
 echo -e "$cyan***********************************************"
 echo "          All done !!!         "
