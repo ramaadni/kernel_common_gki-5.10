@@ -23,7 +23,7 @@ DEVICE=garnet
 
 DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T")
 
-VER=1.2R
+VER=1.3
 
 TANGGAL=$(date +"%F%S")
 
