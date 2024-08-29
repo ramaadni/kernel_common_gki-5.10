@@ -15,6 +15,9 @@ static const char *task_name[] = {
 	// "surfaceflinger",
 	"com.tencent.mm",
 	"egram.messenger",  // org.telegram.messenger
+        "com.HoYoverse",  // com.HoYoverse.hkrpgoversea
+        "com.miHoYo",  // com.miHoYo.GenshinImpact
+
 };
 
 static int to_userspace_prio(int policy, int kernel_priority) {
