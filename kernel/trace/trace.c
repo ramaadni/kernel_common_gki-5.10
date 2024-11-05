@@ -984,7 +984,6 @@ void tracing_on(void)
 {
 	tracer_tracing_on(&global_trace);
 }
-EXPORT_SYMBOL_GPL(tracing_on);
 
 
 static __always_inline void
@@ -3687,6 +3686,8 @@ void tracing_iter_reset(struct trace_iterator *iter, int cpu)
 			break;
 		entries++;
 		ring_buffer_iter_advance(buf_iter);
+		/* This could be a big loop */
+		cond_resched();
 	}
 
 	per_cpu_ptr(iter->array_buffer->data, cpu)->skipped_entries = entries;
