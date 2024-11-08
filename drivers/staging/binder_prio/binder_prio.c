@@ -17,6 +17,7 @@ static const char *task_name[] = {
 	"egram.messenger",  // org.telegram.messenger
         "com.HoYoverse",  // com.HoYoverse.hkrpgoversea
         "com.miHoYo",  // com.miHoYo.GenshinImpact
+        "com.mobile",  // com.mobile.legends
 
 };
 
