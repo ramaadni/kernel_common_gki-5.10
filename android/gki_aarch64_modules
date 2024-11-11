@@ -1,2 +1,3 @@
 mm/zsmalloc.ko
+drivers/soc/qcom/sync_fence/qcom_sync_file.ko
 drivers/block/zram/zram.ko
