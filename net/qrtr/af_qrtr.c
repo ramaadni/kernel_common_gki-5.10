@@ -1664,20 +1664,17 @@ static int qrtr_bcast_enqueue(struct qrtr_node *node, struct sk_buff *skb,
 {
 	struct sk_buff *skbn;
 
-	down_read(&qrtr_epts_lock);
-	list_for_each_entry(node, &qrtr_all_epts, item) {
-		if (node->nid == QRTR_EP_NID_AUTO && type != QRTR_TYPE_HELLO)
-			continue;
-
-		skbn = skb_clone(skb, GFP_KERNEL);
+	mutex_lock(&qrtr_node_lock);
+	list_for_each_entry(node, &qrtr_all_nodes, item) {
+		skbn = pskb_copy(skb, GFP_KERNEL);
 		if (!skbn)
 			break;
 		skb_set_owner_w(skbn, skb->sk);
-		qrtr_node_enqueue(node, skbn, type, from, to, flags);
+		qrtr_node_enqueue(node, skbn, type, from, to);
 	}
-	up_read(&qrtr_epts_lock);
+	mutex_unlock(&qrtr_node_lock);
 
-	qrtr_local_enqueue(NULL, skb, type, from, to, flags);
+	qrtr_local_enqueue(NULL, skb, type, from, to);
 
 	return 0;
 }
