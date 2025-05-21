@@ -1710,12 +1710,12 @@ static int qcom_socinfo_probe(struct platform_device *pdev)
 					   SOCINFO_MINOR(le32_to_cpu(info->ver)));
 	qs->attr.soc_id = kasprintf(GFP_KERNEL, "%d", socinfo_get_id());
 
-	if (socinfo_format >= SOCINFO_VERSION(0, 16)) {
-		machine = socinfo_machine(le32_to_cpu(info->id));
-		esku = socinfo_get_esku_mapping();
-		if (machine && esku)
-			sku = devm_kasprintf(&pdev->dev, GFP_KERNEL, "%s-%u-%s",
-				machine, socinfo_get_nproduct_code(), esku);
+	if (offsetofend(struct socinfo, serial_num) <= item_size) {
+		qs->attr.serial_number = devm_kasprintf(&pdev->dev, GFP_KERNEL,
+							"%u",
+							le32_to_cpu(info->serial_num));
+		if (!qs->attr.serial_number)
+			return -ENOMEM;
 	}
 
 	qsocinfo = qs;
